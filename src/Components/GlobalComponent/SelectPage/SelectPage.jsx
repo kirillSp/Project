@@ -6,7 +6,7 @@ export let SelectPage = (props) => {
     let pagesForRender = [];
 
     for (let numPage = 1; numPage <= totalPages; numPage++) {
-        pagesForRender.push(numPage);
+        pagesForRender.push(numPage)
     }
 
     return <div className={StyleSelectPage.numPage}>{
