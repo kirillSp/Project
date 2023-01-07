@@ -3,7 +3,7 @@ import { updateStateButton } from "../Util/WrapperReducer/WrapperReducer";
 
 let initialState = {
     users: [],
-    pageSize: 10,
+    pageSize: 3,
     totalUsers: 40,
     currentPage: 1,
     isLoading: false,

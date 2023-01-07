@@ -26,9 +26,6 @@ class ProfileStatus extends React.Component {
     }
 
     render() {
-
-
-        
         return <div>{
             this.state.editMode
                 ? <input onChange={this.onChangeStatus} autoFocus={true} onBlur={this.deactivateEditMode} value={this.state.status} />
