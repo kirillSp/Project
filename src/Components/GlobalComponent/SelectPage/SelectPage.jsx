@@ -12,7 +12,7 @@ export let SelectPage = ({ totalUsers, pageSize, currentPage, clickPage, section
     let totalSection = Math.ceil(totalPages / sectionSize);
     let [currentSection, setSection] = useState(1);
     let firstPageSection = (currentSection - 1) * sectionSize + 1;
-    let lastPageSection = currentSection * sectionSize
+    let lastPageSection = currentSection * sectionSize;
 
     return <div className={StyleSelectPage.numPage}>
         <>{
