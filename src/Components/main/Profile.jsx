@@ -5,7 +5,7 @@ import ProfileInfo from "./my-post/ProfileInfo/ProfileInfo";
 const Profile = (props) => {
   return (
     <main>
-      <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+      <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} updateImgProfile={props.updateImgProfile} isParamId={props.isParamId} />
       <MyPostContainer/>
     </main>
   )

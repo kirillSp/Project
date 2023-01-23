@@ -34,6 +34,12 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 status: action.getStatus
+            };
+
+        case "SET-PHOTO":
+            return {
+                ...state,
+                profile: { ...state.profile, photos: { ...state.profile.photos, large: action.photo, small: action.photo } }
             }
 
         default:
@@ -59,8 +65,18 @@ export const updateStatus = (status) => async (dispatch) => {
     }
 }
 
+export const updateImgProfile = (photo) => async (dispatch) => {
+    let response = await profileAPI.sendPhoto(photo);
+
+    if (response.data.resultCode === 0) {
+        dispatch(setPhotoAC(response.data.data.photos.small))
+    }
+
+}
+
 export const ADD_POST_ACTION_CREATER = (formData) => ({ type: ADD_POST, formData });
 export const setUserProfile = (getDataProfile) => ({ type: SET_USER, getDataProfile });
 export const setStatus = (getStatus) => ({ type: "SET-STATUS", getStatus });
+export const setPhotoAC = (photo) => ({ type: "SET-PHOTO", photo })
 
 export default profileReducer; 
