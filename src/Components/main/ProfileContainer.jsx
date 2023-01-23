@@ -28,6 +28,7 @@ class ProfileContainer extends React.Component {
     profileUpdate() {
         let userId = this.props.router.params.userId;
         if (!userId) userId = this.props.myId;
+        
         this.props.dataProfile(userId);
         this.props.getStatus(userId);
     }
