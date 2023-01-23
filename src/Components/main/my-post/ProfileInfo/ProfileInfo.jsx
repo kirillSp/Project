@@ -1,5 +1,4 @@
 import React from "react";
-import S from "./ProfileInfo.module.css"
 import Preloader from "../../../GlobalComponent/Preloader/Preloader";
 // import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
@@ -13,7 +12,7 @@ const ProfileInfo = props => {
     }
 
     return (
-        <div className={S.posts}>
+        <div className={ProfileInfoS.posts}>
             <div className="userProfile">
                 <div>
                     <img className={ProfileInfoS.profileImg} src={props.profile.photos.small || "https://pbs.twimg.com/media/EaEDOYFU4AUCbH3.jpg"} />
