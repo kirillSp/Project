@@ -1,9 +1,17 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import PaginatorS from "./PaginatorS.module.css";
 
-export let Paginator = ({ totalUsers, pageSize, currentPage, clickPage, sectionSize = 5 }) => {
+type PropsType = {
+    totalUsers: number
+    pageSize: number 
+    currentPage: number
+    clickPage: (numPage: number) => void 
+    sectionSize?: number 
+}
+
+export let Paginator: React.FC<PropsType> = ({ totalUsers, pageSize, currentPage, clickPage, sectionSize = 5 }) => {
     let totalPages = Math.ceil(totalUsers / pageSize);
-    let renderPages = [];
+    let renderPages: Array<number> = [];
 
     for (let numPage = 1; numPage <= totalPages; numPage++) {
         renderPages.push(numPage)
@@ -16,7 +24,7 @@ export let Paginator = ({ totalUsers, pageSize, currentPage, clickPage, sectionS
 
     return <div className={PaginatorS.numPage}>
         <>{
-            currentSection > 1 && <button onClick={() => setSection(currentSection - 1)}>prev</button>
+            currentSection > 1 && <button onClick={() => { setSection(currentSection - 1) }}>prev</button>
         }</>
 
         <>{
@@ -25,7 +33,7 @@ export let Paginator = ({ totalUsers, pageSize, currentPage, clickPage, sectionS
                 .map((numPage, i) => {
                     let cnVal = (currentPage === numPage ? PaginatorS.selected : "") + " " + PaginatorS.pages;
 
-                    return <span className={cnVal} key={i} onClick={() => clickPage(numPage)}>{
+                    return <span className={cnVal} key={i} onClick={() => { clickPage(numPage) }}>{
                         numPage
                     }</span>
 

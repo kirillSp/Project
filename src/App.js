@@ -11,15 +11,25 @@ import Music from "./Components/nav/Music/music"
 import Settings from "./Components/nav/Settings/Settings";
 import Login from "./Components/main/Login/login";
 import Preloader from "./Components/GlobalComponent/Preloader/Preloader";
+import { WithAuthRedirectComponent } from "./HOC/WithAuthRedirectComponent";
 
 let ProfileContainer = React.lazy(() => import("./Components/main/ProfileContainer"));
 let DialogsContainer = React.lazy(() => import("./Components/nav/Dialogs/DialogsContainer"));
 let FindUsersContainer = React.lazy(() => import("./Components/nav/FindUsers/FindUsersContainer"));
 
 class App extends React.Component {
+    // catchAllUnhandlerError() {
+        // alert("some error")
+    // }
+
     componentDidMount() {
         this.props.initinalApp();
+        // window.addEventListener("unhandledrejection", this.catchAllUnhandlerError);
     }
+
+    // componentWillUnmount() {
+        // window.removeEventListener("unhandledrejection", this.catchAllUnhandlerError);
+    // }
 
     render() {
         if (!this.props.initialized) return <Preloader />
@@ -38,8 +48,9 @@ class App extends React.Component {
                             <Route path="/music" element={<Music />}></Route>
                             <Route path="/news" element={<News />}></Route>
                             <Route path="/settings" element={<Settings />}></Route>
-                            <Route path="/findUsers" element={<FindUsersContainer />}></Route>
+                            <Route path="/findUsers" element={<FindUsersContainer pageTitle={"samurai"} />}></Route>
                             <Route path="/login" element={<Login />}></Route>
+                            <Route path="*" element={<div>404 not found</div>}></Route>
                         </Routes>
                     </Suspense>
                 </div>

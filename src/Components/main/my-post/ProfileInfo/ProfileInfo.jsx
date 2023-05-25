@@ -1,30 +1,48 @@
-import React from "react";
-import Preloader from "../../../GlobalComponent/Preloader/Preloader";
 // import ProfileStatus from "./ProfileStatus/ProfileStatus";
-import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
-import ProfileInfoS from "./ProfileInfoS.module.css";
 
-const ProfileInfo = props => {
-    if (!props.profile) return <Preloader />
+import React, { useState } from "react";
+import Preloader from "../../../GlobalComponent/Preloader/Preloader";
+import ProfileInfoS from "./ProfileInfoS.module.css";
+import ProfileData from "./ProfileData/ProfileData"
+import ProfileDataReduxForm from "./ProfileDataForm/ProfileDataForm";
+import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
+
+const ProfileInfo = (props) => {
+    let [editMode, setEditMode] = useState(false);
+    let { profile, updateImgProfile, isParamId, status, updateStatus } = props;
+
+    if (!profile) return <Preloader />
 
     let selectPhoto = (e) => {
-        props.updateImgProfile(e.target.files[0]);
+        updateImgProfile(e.target.files[0]);
     }
+
+    let sendUpdatedProfileInfo = (formData) => { 
+        props.updateDataProfile(formData).then(() => setEditMode(!editMode));
+    };
 
     return (
         <div className={ProfileInfoS.posts}>
-            <div className="userProfile">
-                <div>
-                    <img className={ProfileInfoS.profileImg} src={props.profile.photos.small || "https://pbs.twimg.com/media/EaEDOYFU4AUCbH3.jpg"} />
-                </div>
-                <div>{
-                    props.isParamId || <input type="file" onChange={selectPhoto}/>
-                }</div>
-                <b>{props.profile.fullName}</b>
-                <p>{props.profile.aboutMe}</p>
-                <ProfileStatusWithHooks status={props.status || "Укажите статус"} updateStatus={props.updateStatus} />
-                {/* <ProfileStatus status={props.status || "Укажите статус"} updateStatus={props.updateStatus}/> */}
+            {/* <ProfileStatus status={props.status || "Укажите статус"} updateStatus={props.updateStatus}/> */}
+            
+            <div>
+                <img className={ProfileInfoS.profileImg} src={profile.photos.small || "https://pbs.twimg.com/media/EaEDOYFU4AUCbH3.jpg"} />
             </div>
+
+            <div>{
+                isParamId || <input type="file" onChange={selectPhoto} />
+            }</div>
+
+            <>{
+                editMode
+                    ? <ProfileDataReduxForm initialValues={profile} onSubmit={sendUpdatedProfileInfo} updateStatus={updateStatus} />
+                    : <ProfileData profile={profile} status={status} updateStatus={updateStatus} isParamId={isParamId} setEditMode={() => setEditMode(!editMode)} />
+            }</>
+
+        <div>
+            <b>Status: </b>
+            <ProfileStatusWithHooks status={props.status || "Укажите статус"} updateStatus={props.updateStatus} />
+        </div>
         </div>
     )
 }

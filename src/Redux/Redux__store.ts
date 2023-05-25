@@ -9,7 +9,12 @@ import thunk from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
 import appReducer from "./appReducer";
 
-let reducers = combineReducers({ profilePage, messagePage, sidebarPage, findUsers, auth, appReducer, form: formReducer });
-let store = createStore(reducers, applyMiddleware(thunk));
+let rootReducers = combineReducers({ profilePage, messagePage, sidebarPage, findUsers, auth, appReducer, form: formReducer });
 
+export type RootReducersType = ReturnType<typeof rootReducers> 
+
+type PropertiesType<T> = T extends { [key in string]: infer U } ? U : never; 
+type ActionsType<T extends ()> = T
+
+let store = createStore(rootReducers, applyMiddleware(thunk));
 export default store;
